@@ -1,0 +1,10 @@
+= form_with model: project, local: true do |f|
+  = f.label :title
+  = f.text_field :title
+  = f.label :content
+  = f.text_area :content
+  = f.label :goal_amount
+  = f.text_field :goal_amount
+  = f.label :limit
+  = f.date_select :limit
+  = f.submit
