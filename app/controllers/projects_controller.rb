@@ -10,8 +10,25 @@ class ProjectsController < ApplicationController
 
   def create
     project = Project.new(project_params)
-    project.save
-    redirect_to action: :index
+    if project.save
+      redirect_to action: :show
+    else
+      render action: :new
+    end
+  end
+
+  def show
+  end
+
+  def edit
+  end
+
+  def update
+    if @project.update(project_params)
+      redirect_to action: :show
+    else
+      render action: :edit
+    end
   end
 
   private
