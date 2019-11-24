@@ -1,0 +1,44 @@
+Sign up
+
+= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+  = render "devise/shared/error_messages", resource: resource
+
+  .field
+    = f.label :nickname
+    = f.text_field :nickname, autofocus: true, autocomplete: "例）たろう"
+    %br
+  .field
+    = f.label :lastname_kanji
+    = f.text_field :lastname_kanji, autofocus: true, autocomplete: "例）山田"
+    %br
+  .field
+    = f.label :firstname_kanji
+    = f.text_field :firstname_kanji, autofocus: true, autocomplete: "例）太郎"
+    %br
+  .field
+    = f.label :lastname_kana
+    = f.text_field :lastname_kana, autofocus: true, autocomplete: "例）太郎"
+    %br
+  .field
+    = f.label :firstname_kana
+    = f.text_field :firstname_kana, autofocus: true, autocomplete: "例）太郎"
+    %br
+  .field
+    = f.label :email
+    = f.email_field :email, autofocus: true, autocomplete: "email"
+    %br
+  .field
+    = f.label :password
+    - if @minimum_password_length
+      %em
+        (#{@minimum_password_length} characters minimum)
+      = f.password_field :password, autocomplete: "new-password"
+    %br
+  .field
+    = f.label :password_confirmation
+    = f.password_field :password_confirmation, autocomplete: "new-password"
+    %br
+  .actions
+    = f.submit "Sign up"
+
+= render "devise/shared/links"

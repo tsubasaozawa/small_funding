@@ -2,4 +2,8 @@
   新規投稿
 
 - @projects.each do |project|
-  = project.title
+  = link_to project_path(project) do
+    = project.title
+
+= link_to destroy_user_session_path, method: :delete do
+  ログアウト
