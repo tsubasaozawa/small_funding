@@ -1,9 +1,15 @@
+= link_to mypage_user_path(current_user) do
+  マイページ
+  %br
+= link_to destroy_user_session_path, method: :delete do
+  ログアウト
+  %br
 = link_to new_project_path do
   新規投稿
-
+  %br
+プロジェクト一覧
+%br
 - @projects.each do |project|
   = link_to project_path(project) do
     = project.title
-
-= link_to destroy_user_session_path, method: :delete do
-  ログアウト
+  %br
