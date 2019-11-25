@@ -9,9 +9,10 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    project = Project.new(project_params)
+    project = Project.create(project_params.merge(user_id: current_user.id))
+    # project = Project.create(title: project_params[:title], content: project_params[:content], goal_amount: project_params[:goal_amount], limit: project_params[:limit], user_id: current_user.id)
     if project.save
-      redirect_to action: :show
+      redirect_to root_path
     else
       render action: :new
     end
