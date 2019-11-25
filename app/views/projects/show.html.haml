@@ -1,10 +1,19 @@
 = @project.title
+%br
 = @project.content
+%br
 = @project.goal_amount
+%br
 = @project.limit
+%br
 
+-# - if @project.user == current_user.id
 = link_to edit_project_path do
   投稿内容編集
-
+-# - else
+%br
+= link_to purchase_path do
+  購入する
+%br
 = link_to root_path do
   一覧に戻る
