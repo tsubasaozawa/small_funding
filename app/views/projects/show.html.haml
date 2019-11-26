@@ -1,19 +1,37 @@
+タイトル：
 = @project.title
 %br
+内容：
 = @project.content
 %br
-= @project.goal_amount
+目標金額：¥
+= @project.goal_amount.to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,')
 %br
-= @project.limit
+現在の合計金額：¥
+= @total_amount.to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,')
+(達成率：#{number_to_percentage(@total_amount/@project.goal_amount.to_f * 100, precision: 0)})
 %br
-
--# - if @project.user == current_user.id
-= link_to edit_project_path do
-  投稿内容編集
--# - else
+期限：
+= @project.limit.strftime("%Y/%-m/%-d")
 %br
-= link_to purchase_path do
-  購入する
+%h3
+  いいね件数: #{@project.likes.count}
+- if current_user.already_liked?(@project)
+  = link_to project_like_path(@project), method: :delete, remote: true do
+    = fa_icon "heart", class: "liked-icon"
+- else
+  = link_to project_likes_path(@project), method: :post, remote: true do
+    = fa_icon "heart-o", class: "like-icon"
+%h2 いいねしたユーザー
+- @project.liked_users.each do |user|
+  = user.nickname
+%br
+- if @project.user_id == current_user.id
+  = link_to edit_project_path do
+    投稿内容編集
+- else
+  = link_to purchase_path do
+    サポートする
 %br
 = link_to root_path do
   一覧に戻る

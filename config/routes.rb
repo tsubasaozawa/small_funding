@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users
   root to: "projects#index"
-  resources :projects, only: [:new, :create, :show, :edit, :update]
+  resources :projects, only: [:new, :create, :show, :edit, :update] do
+    resources :likes, only: [:create, :destroy]
+  end
   resources :purchase, only: [:show] do
     member do
       post :pay

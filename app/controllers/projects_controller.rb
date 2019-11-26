@@ -19,6 +19,8 @@ class ProjectsController < ApplicationController
   end
 
   def show
+    @total_amount = Investment.where(project_id: params[:id]).sum(:investment_amount)
+    @like = Like.new
   end
 
   def edit
