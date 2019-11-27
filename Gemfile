@@ -72,3 +72,6 @@ gem 'payjp'
 gem 'dotenv-rails'
 gem 'jquery-rails'
 gem "font-awesome-rails"
+
+gem 'jquery-ui-rails'
+gem 'rails-ujs'
