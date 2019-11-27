@@ -13,3 +13,6 @@
   = link_to project_path(project) do
     = project.title
   %br
+タグ一覧
+- @tags.each do |tag|
+  %li= tag.tag_name

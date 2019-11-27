@@ -38,6 +38,20 @@ Sign up
     = f.label :password_confirmation
     = f.password_field :password_confirmation, autocomplete: "new-password"
     %br
+  .field
+    = f.label "タグリスト"
+    %ul#project-tags
+    人気のタグ：
+    .tags
+      - @tags.each do |tag|
+        .tags__tag
+          = tag.tag_name
+
+  -# .field
+  -#   = f.label "タグリスト"
+  -#   = f.collection_check_boxes :category_ids, @tags, :id, :tag_name, include_hidden: false do |b|
+  -#     = b.label { b.check_box + b.text }
+
   .actions
     = f.submit "Sign up"
 
