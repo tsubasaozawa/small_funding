@@ -19,6 +19,12 @@ tag:
 %br
 期限：
 = @project.limit.strftime("%Y/%-m/%-d")
+- if @remaining_days == 0
+  （本日締切！）
+- elsif @remaining_days > 0
+  （残り#{@remaining_days}日）
+- else
+  （募集終了）
 %br
 %h3
   いいね件数: #{@project.likes.count}
@@ -40,8 +46,11 @@ tag:
   = link_to edit_project_path do
     投稿内容編集
 - else
-  = link_to purchase_path do
-    サポートする
+  - if @remaining_days < 0
+    募集期間終了
+  - else
+    = link_to purchase_path do
+      サポートする
 %br
 = link_to root_path do
   一覧に戻る

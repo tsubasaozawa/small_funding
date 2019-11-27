@@ -20,6 +20,8 @@ class ProjectsController < ApplicationController
   end
 
   def show
+    today = Date.today
+    @remaining_days = (@project.limit - today).to_i
     @total_amount = Investment.where(project_id: params[:id]).sum(:investment_amount)
     @like = Like.new
   end
@@ -46,5 +48,9 @@ class ProjectsController < ApplicationController
 
   def set_project
     @project = Project.find(params[:id])
+  end
+
+  def set_today
+    @proje = Project.find(params[:id])
   end
 end
