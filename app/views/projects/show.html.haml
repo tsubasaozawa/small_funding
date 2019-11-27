@@ -18,13 +18,14 @@
   いいね件数: #{@project.likes.count}
 - if current_user.already_liked?(@project)
   = link_to project_like_path(@project), method: :delete, remote: true do
-    = fa_icon "heart", class: "liked-icon"
+    = fa_icon "heart", class: "liked-icon", id: "liked-users"
 - else
   = link_to project_likes_path(@project), method: :post, remote: true do
-    = fa_icon "heart-o", class: "like-icon"
-%h2 いいねしたユーザー
-- @project.liked_users.each do |user|
-  = user.nickname
+    = fa_icon "heart-o", class: "like-icon", id: "liked-users"
+.like-users-list
+  いいねしたユーザー：
+  - @project.liked_users.each do |user|
+    %li= user.nickname
 %br
 - if @project.user_id == current_user.id
   = link_to edit_project_path do
