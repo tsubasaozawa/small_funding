@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_26_104816) do
+ActiveRecord::Schema.define(version: 2019_11_27_015055) do
 
   create_table "cards", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "customer_id"
@@ -19,6 +19,13 @@ ActiveRecord::Schema.define(version: 2019_11_26_104816) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_cards_on_user_id"
+  end
+
+  create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "tag_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tag_name"], name: "index_categories_on_tag_name", unique: true
   end
 
   create_table "investments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -38,6 +45,15 @@ ActiveRecord::Schema.define(version: 2019_11_26_104816) do
     t.datetime "updated_at", null: false
     t.index ["project_id"], name: "index_likes_on_project_id"
     t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
+  create_table "project_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "project_id"
+    t.bigint "category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_project_categories_on_category_id"
+    t.index ["project_id"], name: "index_project_categories_on_project_id"
   end
 
   create_table "projects", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -73,4 +89,6 @@ ActiveRecord::Schema.define(version: 2019_11_26_104816) do
   add_foreign_key "investments", "users"
   add_foreign_key "likes", "projects"
   add_foreign_key "likes", "users"
+  add_foreign_key "project_categories", "categories"
+  add_foreign_key "project_categories", "projects"
 end

@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
   def index
-    @projects = Project.all
+    @projects = Project.includes(:categories)
   end
 
   def new
@@ -10,8 +10,9 @@ class ProjectsController < ApplicationController
 
   def create
     project = Project.create(project_params.merge(user_id: current_user.id))
-    # project = Project.create(title: project_params[:title], content: project_params[:content], goal_amount: project_params[:goal_amount], limit: project_params[:limit], user_id: current_user.id)
+    category_list = params[:category_list].split(",")
     if project.save
+      project.save_categories(category_list)
       redirect_to root_path
     else
       render action: :new
@@ -24,10 +25,13 @@ class ProjectsController < ApplicationController
   end
 
   def edit
+    @category_list = @project.categories.pluck(:tag_name).join(",")
   end
 
   def update
+    category_list = params[:category_list].split(",")
     if @project.update(project_params)
+      @project.save_categories(category_list)
       redirect_to action: :show
     else
       render action: :edit
@@ -37,7 +41,7 @@ class ProjectsController < ApplicationController
   private
 
   def project_params
-    params.require(:project).permit(:title, :content, :goal_amount, :limit)
+    params.require(:project).permit(:title, :content, :goal_amount, :limit, :category_list)
   end
 
   def set_project

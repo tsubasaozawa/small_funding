@@ -1,6 +1,12 @@
 タイトル：
 = @project.title
 %br
+tag:
+.tags
+  - @project.categories.each do |category|
+    .tags__tag
+      = category.tag_name
+%br
 内容：
 = @project.content
 %br
@@ -24,8 +30,11 @@
     = fa_icon "heart-o", class: "like-icon", id: "liked-users"
 .like-users-list
   いいねしたユーザー：
-  - @project.liked_users.each do |user|
-    %li= user.nickname
+  - unless @project.likes.count == 0
+    - @project.liked_users.each do |user|
+      %li= user.nickname
+  - else
+    いいねしたユーザーはまだいません
 %br
 - if @project.user_id == current_user.id
   = link_to edit_project_path do
