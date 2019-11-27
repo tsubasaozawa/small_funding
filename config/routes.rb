@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  devise_for :users
   root to: "projects#index"
+  devise_for :users, :controllers => { registrations: 'users/registrations' }
   resources :projects, only: [:new, :create, :show, :edit, :update] do
     resources :likes, only: [:create, :destroy]
   end
