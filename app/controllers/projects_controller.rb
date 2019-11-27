@@ -15,7 +15,7 @@ class ProjectsController < ApplicationController
       project.save_categories(category_list)
       redirect_to root_path
     else
-      render action: :new
+      redirect_to new_project_path
     end
   end
 

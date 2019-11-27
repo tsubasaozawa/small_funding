@@ -8,11 +8,10 @@ class User < ApplicationRecord
 
   has_many :likes, dependent: :destroy
   has_many :liked_projects, through: :likes, source: :project
+  
+  validates :nickname, presence: true, length: { maximum: 10 }
 
   def already_liked?(project)
     self.likes.exists?(project_id: project.id)
   end
-
-  validates :nickname, presence: true, length: { maximum: 10 }
-
 end
