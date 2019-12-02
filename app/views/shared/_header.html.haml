@@ -1,0 +1,25 @@
+.header-wrapper
+  .main-header
+    = link_to projects_path, class: "none-decoration-link" do
+      .main-header__logo
+        logo
+    .main-header__search-box
+      = form_with url: search_projects_path, method: :get, local: true do |f|
+        .main-header__search-box__wrapper
+          = f.text_field :keyword, type: "text", placeholder: "フリーワードでプロジェクトを探す", class: "main-header__search-box__wrapper__input-box"
+          %button.main-header__search-box__wrapper__submit-btn{type: "submit"}
+            = fa_icon "search"
+    #main-menu-icon.main-header__menu-icon
+      = fa_icon "bars"
+    .menu-box
+      .menu-box__close
+        %span#close-btn ×
+      = link_to mypage_user_path(current_user), class: "none-decoration-link" do
+        .menu-box__menu
+          %span.menu-red マイページ
+      = link_to destroy_user_session_path, method: :delete, class: "none-decoration-link" do
+        .menu-box__menu
+          %span.menu-brown ログアウト
+      = link_to new_project_path, class: "none-decoration-link" do
+        .menu-box__menu
+          %span.menu-green 新規投稿

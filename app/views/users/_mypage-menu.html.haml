@@ -1,0 +1,26 @@
+.mypage-main-box__main-contents__wrapper__left-box
+  .mypage-main-box__main-contents__wrapper__left-box__content
+    = link_to mypage_user_path, class: "none-decoration-link" do
+      .mypage-main-box__main-contents__wrapper__left-box__content__title
+        My Profile
+        = fa_icon "arrow-circle-right"
+  .mypage-main-box__main-contents__wrapper__left-box__content
+    = link_to myworks_user_path, class: "none-decoration-link" do
+      .mypage-main-box__main-contents__wrapper__left-box__content__title
+        My Works
+        = fa_icon "arrow-circle-right"
+  .mypage-main-box__main-contents__wrapper__left-box__content
+    = link_to myprojects_user_path, class: "none-decoration-link" do
+      .mypage-main-box__main-contents__wrapper__left-box__content__title
+        My Own Projects
+        = fa_icon "arrow-circle-right"
+  .mypage-main-box__main-contents__wrapper__left-box__content
+    = link_to participating_projects_user_path, class: "none-decoration-link" do
+      .mypage-main-box__main-contents__wrapper__left-box__content__title
+        Participating Projects
+        = fa_icon "arrow-circle-right"
+  .mypage-main-box__main-contents__wrapper__left-box__content
+    = link_to investing_projects_user_path, class: "none-decoration-link" do
+      .mypage-main-box__main-contents__wrapper__left-box__content__title
+        Investing Projects
+        = fa_icon "arrow-circle-right"

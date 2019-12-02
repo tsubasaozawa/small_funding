@@ -1,0 +1,29 @@
+.mypage-main-box__side-bar
+  .mypage-main-box__side-bar__profile
+    .mypage-main-box__side-bar__profile__image
+      = form_with model: @user do |f|
+        = f.label :profile_image, title: "クリックして画像を変更" do
+          - if @user.profile_image.blank?
+            = image_tag "//static.mercdn.net/images/member_photo_noimage_thumb.png", class: "mypage-main-box__side-bar__profile__image__box", id: "img_prev"
+          - else
+            = image_tag @user.profile_image.url,  class: "mypage-main-box__side-bar__profile__image__box", id: "img_prev"
+          = f.file_field :profile_image, class: "mypage-main-box__side-bar__profile__image__file", id: "post_img"
+        .mypage-main-box__side-bar__profile__image__submit-btn
+          = f.submit "画像保存", class: "profile-edit-btn"
+
+    .mypage-main-box__side-bar__profile__user-info
+      .mypage-main-box__side-bar__profile__user-info__nickname
+        = @user.nickname
+      .mypage-main-box__side-bar__profile__user-info__favorite-tags
+        .mypage-main-box__side-bar__profile__user-info__favorite-tags__item-name
+          お気に入りタグ
+        .mypage-main-box__side-bar__profile__user-info__favorite-tags__item-content
+          - @user.categories.each do |mytag|
+            .mypage-main-box__side-bar__profile__user-info__favorite-tags__item-content__tag
+              = mytag.tag_name
+      .mypage-main-box__side-bar__profile__user-info__rate
+        .mypage-main-box__side-bar__profile__user-info__rate__item-name
+          評価
+        .mypage-main-box__side-bar__profile__user-info__rate__item-content
+      = link_to new_card_path do
+        カード情報登録

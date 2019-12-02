@@ -1,0 +1,29 @@
+.project-search{
+  @include project-wrapper();
+  
+  &__search-results{
+    width: 700px;
+
+    &__title{
+      font-size: 25px;
+      font-weight: bold;
+      margin: 0 0 5px;
+      line-height: 1.4;
+
+      span{
+        font-size: 18px;
+        font-weight: 400;
+      }
+    }
+    &__count{
+      margin: 5px 0 15px;
+      font-size: 12px;
+      color: rgb(63, 62, 62);
+
+      span{
+        font-size: 15px;
+        color: rgb(94, 92, 92);
+      }
+    }
+  }
+}

@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
-  root to: "projects#index"
   devise_for :users, :controllers => { registrations: 'users/registrations' }
-  resources :projects, only: [:new, :create, :show, :edit, :update] do
+  root to: "projects#top"
+  resources :projects, only: [:index, :new, :create, :show, :edit, :update] do
+    collection do
+      get :top
+      get :categorylist
+      get :search
+    end
     resources :likes, only: [:create, :destroy]
   end
   resources :purchase, only: [:show] do
@@ -10,9 +15,13 @@ Rails.application.routes.draw do
       get :done
     end
   end
-  resources :users, only: [] do
+  resources :users, only: [:new, :create, :edit, :update, :destroy] do
     member do
       get :mypage
+      get :myworks
+      get :myprojects
+      get :participating_projects
+      get :investing_projects
     end
   end
   resources :cards, only: [:new, :show] do

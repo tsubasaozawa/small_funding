@@ -1,0 +1,98 @@
+.project-show{
+  @include project-wrapper();
+
+  &__wrapper{
+    padding: 30px;
+    border: solid 1px #eee;
+    
+    &__upper-contents{
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: solid 1px #eee;
+
+      &__top-info{
+        display: flex;
+        justify-content: space-between;
+
+        &__owner-name{}
+
+        &__action-box{
+
+          &__action-btn{
+            padding: 5px 10px;
+            border: solid 1px $main-color;
+
+            &:hover{
+              background: $main-color;
+              color: #fff;
+            }
+          }
+
+          &__action-end-btn{
+            padding: 5px 10px;
+            border: solid 1px rgb(202, 200, 200);
+            color: rgb(202, 200, 200);
+          }
+
+        }
+      }
+
+      &__title{
+        font-size: 30px;
+      }
+
+      &__category{
+        &__tags{
+          @include tags();
+        }
+      }
+
+      &__amount{
+        span{
+          font-size: 35px;
+        }
+      }
+
+      &__limit{
+        span{
+          font-size: 30px;
+        }
+      }
+
+      &__like{
+        position: relative;
+        text-align: right;
+
+        &__count{}
+
+        &__like-users-list{
+          position: absolute;
+          right: 0;
+          display: none;
+          margin-top: 5px;
+          padding: 10px;
+          border: solid 1px #eee;
+          border-radius: 5px;
+          background: rgb(238, 237, 237);
+          font-size: 10px;
+          text-align: left;
+
+          li{
+            list-style: circle;
+          }
+        }
+      }
+    }
+    &__bottom-contents{
+    }
+  }
+
+  .return-top{
+    padding: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: right;
+
+  }
+
+}

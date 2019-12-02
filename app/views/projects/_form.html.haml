@@ -1,23 +1,26 @@
-= form_with model: project, local: true do |f|
-  = f.label :title
-  %br
-  = f.text_field :title
-  %br
-  = f.label "タグ  ※以下、自由にタグを入力してください"
-  %br
-  %ul#project-tags
-  = hidden_field_tag :category_hidden, @category_list
-  %br
-  = f.label :content
-  %br
-  = f.text_area :content
-  %br
-  = f.label :goal_amount
-  %br
-  = f.text_field :goal_amount
-  %br
-  = f.label :limit
-  %br
-  = f.date_select :limit
-  %br
-  = f.submit
+.project-form
+  = form_with model: project, local: true do |f|
+    .project-form__title
+      .project-form__title__form-label
+        = f.label :title, "プロジェクトタイトル ※"
+      = f.text_field :title, class: "project-form__title__text-field"
+    .project-form__category
+      .project-form__category__form-label
+        = f.label "タグ  ※以下、自由にタグを入力してください"
+      %ul#project-tags
+      = hidden_field_tag :category_hidden, @category_list
+    .project-form__content
+      .project-form__content__form-label
+        = f.label :content, "プロジェクト内容"
+      = f.text_area :content, class: "project-form__content__text-area", placeholder: 'プロジェクト内容を入力してください'
+    .project-form__goal-amount
+      .project-form__goal-amount__form-label
+        = f.label :goal_amount, "目標金額"
+      ¥
+      = f.text_field :goal_amount, class: "project-form__goal-amount__input-amount"
+    .project-form__limit
+      .project-form__limit__form-label
+        = f.label :limit, "募集期限"
+      = f.date_select :limit
+    .project-form__submit
+      = f.submit "確認して送信する", class: "project-form__submit__btn"

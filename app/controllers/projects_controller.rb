@@ -1,9 +1,9 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
-  
+
   def index
-    @projects = Project.includes(:categories)
-    @tags = Category.limit(10)
+    @projects = Project.includes(:categories).order(limit:"asc")
+    @like = Like.new
   end
 
   def new
@@ -15,16 +15,15 @@ class ProjectsController < ApplicationController
     category_list = params[:category_list].split(",")
     if project.save
       project.save_categories(category_list)
-      redirect_to root_path
+      redirect_to projects_path
     else
       redirect_to new_project_path
     end
   end
 
   def show
-    today = Date.today
-    @remaining_days = (@project.limit - today).to_i
-    @total_amount = Investment.where(project_id: params[:id]).sum(:investment_amount)
+    @remaining_days = (@project.limit - @today).to_i
+    @total_amount = @project.investments.sum(:investment_amount)
     @like = Like.new
   end
 
@@ -42,6 +41,17 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def search
+    redirect_to projects_path if params[:keyword] == ""
+    @like = Like.new
+
+    if params[:tag_search].to_i == 1
+      @projects = Project.joins(:categories).where('tag_name LIKE(?)', "%#{params[:keyword]}%").order(limit:"desc")
+    else
+      @projects = Project.joins(:categories).where('title LIKE(?) OR content LIKE(?) OR tag_name LIKE(?)', "%#{params[:keyword]}%","%#{params[:keyword]}%","%#{params[:keyword]}%").order(limit:"desc")
+    end
+  end
+
   private
 
   def project_params
@@ -52,7 +62,4 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
   end
 
-  def set_today
-    @proje = Project.find(params[:id])
-  end
 end

@@ -1,0 +1,60 @@
+@mixin form(){
+  .project-form{
+    &__title{
+      margin-bottom: 30px;
+
+      &__text-field{
+        height: 50px;
+        width: 100%;
+      }
+    }
+    &__category{
+      margin-bottom: 30px;
+    }
+
+    &__content{
+      margin-bottom: 30px;
+      &__text-area{
+        height: 400px;
+        width: 100%;
+      }
+    }
+    &__goal-amount{
+      margin-bottom: 30px;
+
+      &__input-amount{
+        height: 50px;
+        width: 250px;
+        font-size: large;
+      }
+    }
+    &__limit{
+      margin-bottom: 30px;
+    }
+    &__submit{
+      margin-bottom: 100px;
+      text-align: center;
+
+      &__btn{
+        padding: 10px 15px;
+        border: none;
+        background: rgb(255, 94, 0);
+        color: #fff;
+        cursor: pointer;
+      }
+    }
+
+  }
+}
+
+.project-new{
+  @include project-wrapper();
+
+  @include form();
+}
+
+.project-edit{
+  @include project-wrapper();
+
+  @include form();
+}

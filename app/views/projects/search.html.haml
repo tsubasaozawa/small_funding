@@ -1,0 +1,73 @@
+= render "shared/header"
+.project-search
+  .project-search__search-results
+    .project-search__search-results__title
+      #{params[:keyword]}
+      %span の検索結果
+    .project-search__search-results__count
+      - if @projects.count == 0
+        %span 該当するプロジェクトが見つかりません。検索条件を変えて、再度お試しください。
+      - else
+        1 - #{@projects.uniq.count}件表示
+  .project-index__contents-wrapper
+    .project-index__contents-wrapper__project-box
+      - @projects.uniq.each do |project|
+        .project-index__contents-wrapper__project-box__item
+          .project-index__contents-wrapper__project-box__item__link
+            .project-index__contents-wrapper__project-box__item__link__title
+              = project.title
+            .project-index__contents-wrapper__project-box__item__link__tags
+              - project.categories.each do |category|
+                .project-index__contents-wrapper__project-box__item__link__tags__tag
+                  = category.tag_name
+            .project-index__contents-wrapper__project-box__item__link__limit
+              募集期限：
+              = project.limit.strftime("%Y/%-m/%-d")
+              - if project.limit ==  @today
+                （本日締切！）
+              - elsif project.limit > @today
+                （残り#{(project.limit - @today).to_i}日）
+              - else
+                （募集終了）
+            .project-index__contents-wrapper__project-box__item__link__goal-amount
+              目標金額：¥
+              = project.goal_amount.to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,')
+            .project-index__contents-wrapper__project-box__item__link__total-amount
+              現在の合計金額：¥
+              = project.investments.sum(:investment_amount).to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,')
+              (達成率：#{number_to_percentage(project.investments.sum(:investment_amount)/project.goal_amount.to_f * 100, precision: 0)})
+            .project-index__contents-wrapper__project-box__item__link__detail
+              = link_to project_path(project), class: "project-index__contents-wrapper__project-box__item__link__detail__link" do
+                詳細を確認する
+                = fa_icon "chevron-right"
+          .project-index__contents-wrapper__project-box__item__bottom-contents
+            .project-index__contents-wrapper__project-box__item__bottom-contents__owner-name
+              オーナー：
+              = project.user.nickname
+            .project-index__contents-wrapper__project-box__item__bottom-contents__likes
+              #{project.likes.count}人がいいね!しました
+              - if current_user.already_liked?(project)
+                = link_to project_like_path(project, current_user), method: :delete, remote: true do
+                  = fa_icon "heart", class: "liked-icon", id: "liked-users"
+              - else
+                = link_to project_likes_path(project), method: :post, remote: true, class: "none-decoration-link" do
+                  = fa_icon "heart-o", class: "like-icon", id: "liked-users"
+
+
+
+
+    -# .search-contents__search-results__search-items
+    -#   .search-contents__search-results__search-items__main-contents
+    -#     .search-contents__search-results__search-items__main-contents__wrap
+    -#       %ul.search-contents__search-results__search-items__main-contents__wrap__contents-list
+    -#         - @projects.each do |p|
+    -#           %li.search-contents__search-results__search-items__main-contents__wrap__contents-list__items
+    -#             .search-contents__search-results__search-items__main-contents__wrap__contents-list__items__item
+    -#               = link_to "", class: "search-contents__search-results__search-items__main-contents__wrap__contents-list__items__item__link" do
+    -#                 .search-contents__search-results__search-items__main-contents__wrap__contents-list__items__item__link__figure
+    -#                   .search-contents__search-results__search-items__main-contents__wrap__contents-list__items__item__link__figure__image-box
+    -#                     %span.search-contents__search-results__search-items__main-contents__wrap__contents-list__items__item__link__figure__image-box__price
+    -#                       ¥#{}
+    -#                   .search-contents__search-results__search-items__main-contents__wrap__contents-list__items__item__link__figure__text
+    -#                     %span
+    -#                       = p.title

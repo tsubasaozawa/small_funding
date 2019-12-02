@@ -1,3 +1,151 @@
-// Place all the styles related to the purchase controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.purchase-show{
+  @include project-wrapper();
+  width: 600px;
+
+  &__purchase-box{
+    height: 400px;
+    padding: 20px;
+    border: solid 1px #eeeeee;
+
+    &__title{
+      font-size: large;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    &__contents{
+      span{
+        font-size: 20px;
+      }
+
+      &__project-title{
+        margin-bottom: 10px;
+
+      }
+
+      &__project-goal-amount{
+        margin-bottom: 10px;
+      }
+
+      &__project-total-amount{
+        margin-bottom: 10px;
+      }
+
+      &__investment-amount{
+        margin-bottom: 10px;
+      }
+    
+      &__card-info{
+        margin-bottom: 10px;
+      }
+
+    }
+
+    &__bottom-box{
+      margin: 30px 0;
+      text-align: center;
+
+      &__investment-btn{
+        padding: 10px 15px;
+        border: solid 1px #eee;
+        border-radius: 3px;
+        background: rgb(245, 134, 30);
+        font-size: 15px;
+        font-weight: bold;
+        color: #fff;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .return-top{
+    padding: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: right;
+
+  }
+}
+
+.purchase-done{
+  @include project-wrapper();
+  width: 600px;
+
+  &__purchase-box{
+    height: 400px;
+    padding: 20px;
+    border: solid 1px #eeeeee;
+
+    &__title{
+      font-size: large;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    &__contents{
+      span{
+        font-size: 20px;
+      }
+
+      &__supprot-amount{
+        margin-bottom: 10px;
+      }
+      &__total-supprot-amount{
+        margin-bottom: 20px;
+      }
+
+      &__project-box{
+        padding: 20px;
+        border: solid 1px #eee;
+      
+        &__project-title{
+          margin-bottom: 10px;
+
+        }
+
+        &__project-goal-amount{
+          margin-bottom: 10px;
+        }
+
+        &__project-total-amount{
+          margin-bottom: 10px;
+        }
+
+        &__investment-amount{
+          margin-bottom: 10px;
+        }
+      
+        &__card-info{
+          margin-bottom: 10px;
+        }
+      }
+
+    }
+
+    &__bottom-box{
+      margin: 30px 0;
+      text-align: center;
+
+      &__investment-btn{
+        padding: 10px 15px;
+        border: solid 1px #eee;
+        border-radius: 3px;
+        background: rgb(245, 134, 30);
+        font-size: 15px;
+        font-weight: bold;
+        color: #fff;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .return-top{
+    padding: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: right;
+
+  }
+}

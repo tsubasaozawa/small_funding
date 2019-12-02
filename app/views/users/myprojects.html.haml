@@ -1,0 +1,48 @@
+= render "shared/header"
+.mypage-main-box
+  = render "mypage-sidebar"
+  .mypage-main-box__main-contents
+    .mypage-main-box__main-contents__wrapper
+      = render "mypage-menu"
+      .mypage-main-box__main-contents__wrapper__right-box
+        .mypage-main-box__main-contents__wrapper__right-box__content
+          .mypage-main-box__main-contents__wrapper__right-box__content__title
+            My Projects
+          .mypage-main-box__main-contents__wrapper__right-box__content__table-name
+            【募集中】
+          %table
+            %thead
+              %tr
+                %th.myproject-title プロジェクト名
+                %th.myproject-item-like いいね!数
+                %th.myproject-item-limit 募集期限
+                %th.myproject-item-amount 目標金額
+                %th 現在の合計金額
+            %tbody
+              - @user.projects.each do |myproject|
+                %tr
+                  - if myproject.limit >= @today
+                    %td.myproject-title= link_to "#{myproject.title}",project_path(myproject), class: "myproject-title__link"
+                    %td.myproject-item-like #{myproject.likes.count}件
+                    %td.myproject-item-limit= myproject.limit.strftime("%Y/%-m/%-d")
+                    %td.myproject-item-amount ¥#{myproject.goal_amount.to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,')}
+                    %td¥#{myproject.investments.sum(:investment_amount).to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,')}（#{number_to_percentage(myproject.investments.sum(:investment_amount)/myproject.goal_amount.to_f * 100, precision: 0)}）
+          .mypage-main-box__main-contents__wrapper__right-box__content__table-name
+            【募集終了】
+          %table
+            %thead
+              %tr
+                %th.myproject-title プロジェクト名
+                %th.myproject-item-like いいね!数
+                %th.myproject-item-limit 募集期限
+                %th.myproject-item-amount 目標金額
+                %th 現在の合計金額
+            %tbody
+              - @user.projects.each do |myproject|
+                %tr
+                  - if myproject.limit < @today
+                    %td.myproject-title= link_to "#{myproject.title}",project_path(myproject), class: "myproject-title__link"
+                    %td.myproject-item-like #{myproject.likes.count}件
+                    %td.myproject-item-limit= myproject.limit.strftime("%Y/%-m/%-d")
+                    %td.myproject-item-amount ¥#{myproject.goal_amount.to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,')}
+                    %td¥#{myproject.investments.sum(:investment_amount).to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,')}（#{number_to_percentage(myproject.investments.sum(:investment_amount)/myproject.goal_amount.to_f * 100, precision: 0)}）

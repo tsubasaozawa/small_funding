@@ -1,0 +1,156 @@
+@mixin main-menu(){
+  padding: 0 15px;
+  line-height: $header-height;
+  font-size: 25px;
+  color: #ffffff;
+}
+
+.header-wrapper{
+  position: relative;
+
+  .main-header{
+    display: flex;
+    justify-content: space-between;
+    height: $header-height;
+    width: 1110px;
+    margin: 0 auto;
+    // border-bottom: $mypage-border-color;
+
+    &__logo{
+      font-size: large; // 仮置き
+      line-height: $header-height;
+    }
+
+    &__search-box{
+      line-height: $header-height;
+      text-align: center;
+
+      &__wrapper{
+        position: relative;
+
+        &__input-box{
+          height: 40px;
+          width: 350px;
+          border-radius: 5px;
+          border-width: 1px;
+          border-style: solid;
+          border-color: rgb(204, 204, 204);
+          outline: none;
+          padding: 0px 50px 0px 10px;
+        }
+
+        &__submit-btn{
+          position: absolute;
+          top: 40%;
+          right: 10px;
+          border: none;
+          cursor: pointer;
+        }
+      }
+    }
+
+    &__menu-icon{
+      font-size: 30px;
+      line-height: $header-height;
+      cursor: pointer;
+    }
+
+    .menu-box{
+      display: none;
+      position: absolute;
+      right: 0;
+      height: 100vh;
+      width: 450px;
+      background: rgba(48,47,47,0.99);
+      z-index: 5;
+
+      &__close{
+        @include main-menu();
+
+        #close-btn{
+          cursor: pointer;
+          transition: 0.5s;
+
+          &:hover{
+            font-size: 35px;
+          }
+        }
+      }
+
+      &__menu{
+        @include main-menu();
+
+        span{
+          position: relative;
+          z-index: 3;
+
+        }
+
+        .menu-red{
+          &::after {
+            position: absolute;
+            content: '';
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 15px;
+            border-radius:3px;
+            background: linear-gradient(transparent 20%, #f03817 20%);
+            transition: all 0.5s ease 0.1s;
+          }
+          
+          &:hover {
+            cursor: pointer;
+          }
+          &:hover::after {
+            width: 120%;
+          }
+        }
+
+        .menu-brown{
+          
+          &::after {
+            position: absolute;
+            content: '';
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 15px;
+            border-radius:3px;
+            background: linear-gradient(transparent 20%, #d49d78 20%);
+            transition: all 0.5s ease 0.1s;
+          }
+          
+          &:hover {
+            cursor: pointer;
+          }
+          &:hover::after {
+            width: 120%;
+          }
+        }
+
+        .menu-green{
+          
+          &::after {
+            position: absolute;
+            content: '';
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 15px;
+            border-radius:3px;
+            background: linear-gradient(transparent 20%, #32b347 20%);
+            transition: all 0.5s ease 0.1s;
+          }
+          
+          &:hover {
+            cursor: pointer;
+          }
+          &:hover::after {
+            width: 120%;
+          }
+        }
+      }
+    }
+  }
+}

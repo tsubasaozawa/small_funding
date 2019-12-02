@@ -1,11 +1,14 @@
-.liked-icon{
-  color: deeppink;
+@mixin likes(){
+  font-size: 18px;
   text-decoration: none;
-}
-.like-icon{
-  text-decoration: none;
+
 }
 
-.like-users-list{
-  display: none;
+.liked-icon{
+  @include likes();
+  color: rgb(255, 20, 59);
+
+}
+.like-icon{
+  @include likes();
 }
