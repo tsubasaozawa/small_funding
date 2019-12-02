@@ -1,0 +1,170 @@
+@mixin content() {
+  &__content{
+
+    &__title{
+      padding: 20px 25px;
+      border-bottom: $mypage-border-color;
+      font-size: 17px;
+      // font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+
+      &:hover{
+        background-color: #b49587;
+        color: #ffffff;
+      }
+    }
+
+
+  }
+}
+
+
+.mypage-main-box{
+  display: flex;
+
+  &__side-bar{
+    height: calc(100vh - 70px);
+    width: 230px;
+    border-right: $mypage-border-color;
+
+    &__profile{
+      
+      &__image{
+        margin: 15px 0;
+        text-align: center;
+
+        &__box{
+          height: 240px;
+          width: 180px;
+          object-fit: cover;
+          cursor: pointer;
+        }
+
+        &__file{
+          display: none;
+        }
+
+        &__submit-btn{
+          margin:0 25px ;
+          text-align: right;
+
+          .profile-edit-btn{
+            padding: 5px;
+            border: solid 1px #cfcece;
+            font-size: 12px;
+            cursor: pointer;
+          }
+          
+          .profile-delete-btn{
+            padding: 8px 5px;
+            border: solid 1px #cfcece;
+            font-size: 12px;
+            cursor: pointer;
+            color: black;
+            text-decoration: none;
+          }
+
+        }
+      }
+
+      &__user-info{
+        margin: 0 25px;
+
+        &__nickname{}
+
+        &__favorite-tags{
+
+          &__item-name{}
+          
+          &__item-content{
+            @include tags();
+          }
+        }
+
+      }
+    }
+  }
+
+
+  &__main-contents{
+    width: calc(100vw - 230px);
+
+    &__wrapper{
+      height: 100%;
+      width: 100%;
+      display: flex;
+
+      &__left-box{
+        height: 100%;
+        width: 30%;
+        border-right: $mypage-border-color;
+
+        @include content();
+        
+      }
+
+      &__right-box{
+        width: 70%;
+
+        &__content{
+          margin: 25px;
+          font-size: 13px;
+
+          &__title{
+            margin-bottom: 10px;
+            font-size: 25px;
+            font-weight: bold;
+          }
+
+          &__table-name{
+            font-size: large;
+            font-weight: bold;
+          }
+
+          table{
+            margin: 5px 0 30px;
+
+            thead{
+              border-bottom: solid 1px #eee;
+            }
+
+            th{
+              font-weight: bold;
+            }
+
+            .myproject-title{
+              width: 360px;
+              padding-left: 5px;
+
+              &__link{
+                text-decoration: none;
+                color: $main-color;
+
+                &:hover{
+                  border-bottom: solid 1px $main-color;
+                }
+              }
+            }
+            
+            .myproject-item-like{
+              width: 70px;
+            }
+            .myproject-item-limit{
+              width: 85px;
+            }
+            .myproject-item-amount{
+              width: 85px;
+            }
+            td{
+              padding: 5px 0;
+            }
+          }
+        }
+
+
+      }
+
+    }
+  }
+}

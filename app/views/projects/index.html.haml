@@ -1,18 +1,56 @@
-= link_to mypage_user_path(current_user) do
-  マイページ
-  %br
-= link_to destroy_user_session_path, method: :delete do
-  ログアウト
-  %br
-= link_to new_project_path do
-  新規投稿
-  %br
-プロジェクト一覧
-%br
-- @projects.each do |project|
-  = link_to project_path(project) do
-    = project.title
-  %br
-タグ一覧
-- @tags.each do |tag|
-  %li= tag.tag_name
+= render "shared/header"
+.project-index
+  .project-index__title
+    = link_to projects_path, class: "none-decoration-link" do
+      .project-index__title__search-index
+        プロジェクト一覧
+    = link_to "", class: "none-decoration-link" do
+      .project-index__title__search-recommend
+        オススメ一覧
+    = link_to categorylist_projects_path, class: "none-decoration-link" do
+      .project-index__title__search-category
+        カテゴリーから探す
+  .project-index__contents-wrapper
+    .project-index__contents-wrapper__project-box
+      - @projects.each do |project|
+        - if project.limit >=  @today
+          .project-index__contents-wrapper__project-box__item
+            .project-index__contents-wrapper__project-box__item__link
+              .project-index__contents-wrapper__project-box__item__link__title
+                = project.title
+              .project-index__contents-wrapper__project-box__item__link__tags
+                - project.categories.each do |category|
+                  .project-index__contents-wrapper__project-box__item__link__tags__tag
+                    = category.tag_name
+              .project-index__contents-wrapper__project-box__item__link__limit
+                募集期限：
+                = project.limit.strftime("%Y/%-m/%-d")
+                - if project.limit ==  @today
+                  （本日締切！）
+                - elsif project.limit > @today
+                  （残り#{(project.limit - @today).to_i}日）
+                - else
+                  （募集終了）
+              .project-index__contents-wrapper__project-box__item__link__goal-amount
+                目標金額：¥
+                = project.goal_amount.to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,')
+              .project-index__contents-wrapper__project-box__item__link__total-amount
+                現在の合計金額：¥
+                = project.investments.sum(:investment_amount).to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,')
+                (達成率：#{number_to_percentage(project.investments.sum(:investment_amount)/project.goal_amount.to_f * 100, precision: 0)})
+              .project-index__contents-wrapper__project-box__item__link__detail
+                = link_to project_path(project), class: "project-index__contents-wrapper__project-box__item__link__detail__link" do
+                  詳細を確認する
+                  = fa_icon "chevron-right"
+            .project-index__contents-wrapper__project-box__item__bottom-contents
+              .project-index__contents-wrapper__project-box__item__bottom-contents__owner-name
+                オーナー：
+                = project.user.nickname
+              .project-index__contents-wrapper__project-box__item__bottom-contents__likes
+                #{project.likes.count}人がいいね!しました
+                - if current_user.already_liked?(project)
+                  = link_to project_like_path(project, current_user), method: :delete, remote: true do
+                    = fa_icon "heart", class: "liked-icon", id: "liked-users"
+                - else
+                  = link_to project_likes_path(project), method: :post, remote: true, class: "none-decoration-link" do
+                    = fa_icon "heart-o", class: "like-icon", id: "liked-users"

@@ -1,6 +1,25 @@
-%h2 サポートが完了しました！
-%p #{@project.title}
-%p ¥#{@investment.investment_amount}
-%p ¥#{@total_investment}
-
-= link_to 'Back', root_path
+= render "shared/header"
+.purchase-done
+  .purchase-done__purchase-box
+    .purchase-done__purchase-box__title
+      サポートが完了しました！
+    .purchase-done__purchase-box__contents
+      .purchase-done__purchase-box__contents__supprot-amount
+        今回のサポート金額：
+        %span ¥#{@investment.investment_amount.to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,')}
+      .purchase-done__purchase-box__contents__total-supprot-amount
+        このプロジェクトへの合計サポート金額：
+        %span ¥#{@total_investment.to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,')}
+      .purchase-done__purchase-box__contents__project-box
+        .purchase-done__purchase-box__contents__project-box__project-title
+          プロジェクト名：
+          %span #{@project.title}
+        .purchase-done__purchase-box__contents__project-box__project-goal-amount
+          目標金額：
+          %span ¥#{@project.goal_amount.to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,')}
+        .purchase-done__purchase-box__contents__project-box__project-total-amount
+          現在の合計金額：
+          %span ¥#{@project.investments.sum(:investment_amount).to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,')}
+          （達成率：#{number_to_percentage(@project.investments.sum(:investment_amount)/@project.goal_amount.to_f * 100, precision: 0)}）
+  .return-top
+    = link_to '＜一覧に戻る＞', projects_path, class: "none-decoration-link"

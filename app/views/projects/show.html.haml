@@ -1,59 +1,74 @@
-プロジェクトオーナー：
-= @project.user.nickname
-%br
-タイトル：
-= @project.title
-%br
-tag:
-.tags
-  - @project.categories.each do |category|
-    .tags__tag
-      = category.tag_name
-%br
-内容：
-= @project.content
-%br
-目標金額：¥
-= @project.goal_amount.to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,')
-%br
-現在の合計金額：¥
-= @total_amount.to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,')
-(達成率：#{number_to_percentage(@total_amount/@project.goal_amount.to_f * 100, precision: 0)})
-%br
-期限：
-= @project.limit.strftime("%Y/%-m/%-d")
-- if @remaining_days == 0
-  （本日締切！）
-- elsif @remaining_days > 0
-  （残り#{@remaining_days}日）
-- else
-  （募集終了）
-%br
-%h3
-  いいね件数: #{@project.likes.count}
-- if current_user.already_liked?(@project)
-  = link_to project_like_path(@project), method: :delete, remote: true do
-    = fa_icon "heart", class: "liked-icon", id: "liked-users"
-- else
-  = link_to project_likes_path(@project), method: :post, remote: true do
-    = fa_icon "heart-o", class: "like-icon", id: "liked-users"
-.like-users-list
-  いいねしたユーザー：
-  - unless @project.likes.count == 0
-    - @project.liked_users.each do |user|
-      %li= user.nickname
-  - else
-    いいねしたユーザーはまだいません
-%br
-- if @project.user_id == current_user.id
-  = link_to edit_project_path do
-    投稿内容編集
-- else
-  - if @remaining_days < 0
-    募集期間終了
-  - else
-    = link_to purchase_path do
-      サポートする
-%br
-= link_to root_path do
-  一覧に戻る
+= render "shared/header"
+.project-show
+  .project-show__wrapper
+    .project-show__wrapper__upper-contents
+      .project-show__wrapper__upper-contents__top-info
+        .project-show__wrapper__upper-contents__top-info__owner-name
+          プロジェクトオーナー：
+          = @project.user.nickname
+        .project-show__wrapper__upper-contents__top-info__action-box
+          - if @project.user_id == current_user.id
+            - if @remaining_days >= 0
+              = link_to edit_project_path, class: "none-decoration-link" do
+                .project-show__wrapper__upper-contents__top-info__action-box__action-btn
+                  投稿内容編集
+            - else
+              = link_to "", class: "none-decoration-link" do
+                .project-show__wrapper__upper-contents__top-info__action-box__action-btn
+                  フィードバックをする
+          - else
+            - if @remaining_days < 0
+              .project-show__wrapper__upper-contents__top-info__action-box__action-end-btn
+                フィードバック待ち
+            - else
+              = link_to purchase_path, class: "none-decoration-link" do
+                .project-show__wrapper__upper-contents__top-info__action-box__action-btn
+                  サポートする
+      .project-show__wrapper__upper-contents__title
+        = @project.title
+      .project-show__wrapper__upper-contents__category
+        .project-show__wrapper__upper-contents__category__tags
+          - @project.categories.each do |category|
+            .project-show__wrapper__upper-contents__category__tags__tag
+              = category.tag_name
+      .project-show__wrapper__upper-contents__amount
+        目標金額：
+        %span ¥
+        %span= @project.goal_amount.to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,')
+        ／ 現在の合計金額：
+        %span ¥
+        %span= @total_amount.to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,')
+        (達成率：#{number_to_percentage(@total_amount/@project.goal_amount.to_f * 100, precision: 0)})
+      .project-show__wrapper__upper-contents__limit
+        期限：
+        %span= @project.limit.strftime("%Y/%-m/%-d")
+        - if @remaining_days == 0
+          %span （本日締切！）
+        - elsif @remaining_days > 0
+          %span （残り#{@remaining_days}日）
+        - else
+          （募集終了）
+      .project-show__wrapper__upper-contents__like
+        .project-show__wrapper__upper-contents__like__count
+          #{@project.likes.count}人がいいね!しています
+          - if current_user.already_liked?(@project)
+            = link_to project_like_path(@project), method: :delete, remote: true, class: "none-decoration-link" do
+              = fa_icon "heart", class: "liked-icon", id: "like-icon"
+          - else
+            = link_to project_likes_path(@project), method: :post, remote: true, class: "none-decoration-link" do
+              = fa_icon "heart-o", class: "like-icon", id: "like-icon"
+        #liked-users.project-show__wrapper__upper-contents__like__like-users-list
+          - unless @project.likes.count == 0
+            いいね!したユーザー
+            - @project.liked_users.each do |user|
+              %li= user.nickname
+          - else
+            いいね!したユーザーはまだいません
+
+    .project-show__wrapper__bottom-contents
+      .project-show__wrapper__bottom-contents_title
+        プロジェクト内容：
+        = @project.content
+  .return-top
+    = link_to projects_path, class: "none-decoration-link" do
+      ＜一覧に戻る＞

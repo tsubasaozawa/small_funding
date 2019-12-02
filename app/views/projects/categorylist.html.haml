@@ -1,0 +1,19 @@
+= render "shared/header"
+.project-index
+  .project-index__title-categorylist
+    = link_to projects_path, class: "none-decoration-link" do
+      .project-index__title-categorylist__search-index
+        プロジェクト一覧
+    = link_to "", class: "none-decoration-link" do
+      .project-index__title-categorylist__search-recommend
+        オススメ一覧
+    = link_to categorylist_projects_path, class: "none-decoration-link" do
+      .project-index__title-categorylist__search-category
+        カテゴリーから探す
+  .project-index__contents-wrapper
+    .project-index__contents-wrapper__project-box
+      .project-category-lists
+        - @tags.each do |tag|
+          .project-category-lists__category
+            = link_to search_projects_path(keyword: "#{tag.tag_name}", tag_search: 1), class: "none-decoration-link" do
+              %li= tag.tag_name

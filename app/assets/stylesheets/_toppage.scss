@@ -1,0 +1,39 @@
+$top-menu-color: #fff;
+
+.top-menu{
+  height: 100vh;
+  background: image-url('IMG_3425.jpg');
+  background-size: cover;
+  
+  &__mask{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(48,47,47,0.6);
+    font-size: 25px;
+
+    &__question{
+      margin-right: 30px;
+      font-size: 40px;
+      color: $top-menu-color;
+    }
+
+    &__item-list{
+      padding: 40px;
+      border: solid 2px $top-menu-color;
+
+      &__item{
+        line-height: 70px;
+        color: $top-menu-color;
+
+        span{
+
+          &:hover{
+            border-bottom: solid 2px $top-menu-color;
+          }
+        }
+      }
+    }
+  }
+}

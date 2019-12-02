@@ -1,0 +1,23 @@
+*, *:before, *:after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+.wrapper{
+  font-size: 14px;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+.none-decoration-link{
+  text-decoration: none;
+  color: rgb(48,47,47);
+}
+
+$header-height: 70px;
+$mypage-border-color: solid 1px rgb(235, 234, 234);
+$main-color: rgb(48,47,47);

@@ -75,3 +75,6 @@ gem "font-awesome-rails"
 
 gem 'jquery-ui-rails'
 gem 'rails-ujs'
+
+gem 'carrierwave'
+gem 'mini_magick'

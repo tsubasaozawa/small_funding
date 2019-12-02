@@ -1,0 +1,120 @@
+@mixin project-wrapper(){
+  height: 100%;
+  width: 1110px;
+  margin: 0 auto;
+}
+
+.project-index{
+  @include project-wrapper();
+
+  &__title{
+    display: flex;
+    font-size: 15px;
+
+    &__search-index{
+      background: rgba(48,47,47,0.9);
+      padding: 10px 15px;
+      border-bottom: solid 1px rgb(48,47,47);
+      border-radius: 5px 5px 0 0;
+      color: #ffffff;
+    }
+    &__search-recommend{
+      background: #ffffff;
+      padding: 10px 15px;
+      border-top: solid 1px rgb(48,47,47);
+      border-right: solid 1px rgb(48,47,47);
+      border-radius: 5px 5px 0 0;
+      color: rgb(48,47,47);
+    }
+    &__search-category{
+      background: #ffffff;
+      padding: 10px 15px;
+      border-top: solid 1px rgb(48,47,47);
+      border-right: solid 1px rgb(48,47,47);
+      border-radius: 5px 5px 0 0;
+      color: rgb(48,47,47);
+    }
+
+  }
+
+  &__contents-wrapper{
+    border: solid 1px rgb(48,47,47);
+
+    &__project-box{
+      display: flex;
+      flex-wrap: wrap;
+      width: 1050px;
+      margin: 0 auto;
+      padding: 30px 0;
+
+        &__item{
+          position: relative;
+          height: 200px;
+          width: 510px;
+          padding: 10px;
+          border: solid 1px #eee;
+          // border-radius: 3px;
+          box-shadow: 0 3px 3px 0 rgba(0,0,0,0.2);
+          background: #ffffff;
+
+          &:not(:nth-child(2n)){
+            margin-right: 30px;
+          }
+
+          &:not(:last-of-type){
+            margin-bottom: 30px;
+          }
+
+          &__link{
+
+            &__title{
+              font-weight: bold;
+              padding-bottom: 5px;
+              border-bottom: solid 1px #eeeeee;
+            }
+
+            &__tags{
+              @include tags();
+            }
+            &__limit{}
+
+            &__goal-amount{}
+            &__total-amount{}
+
+            &__detail{
+              margin-top: 5px;
+              text-align: right;
+
+              &__link{
+                color: rgb(240, 110, 24);
+                text-decoration: none;
+              
+              }
+            }
+
+        }
+
+        &__bottom-contents{
+          display: flex;
+          // border-top: solid 1px #eee;
+          font-size: 12px;
+
+          &__owner-name{
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            margin: 0 10px 8px;
+          }
+
+          &__likes{
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            margin: 0 10px 8px;
+          }
+        }
+      }
+
+    }
+  }
+}

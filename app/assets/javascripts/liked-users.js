@@ -1,10 +1,10 @@
 $(document).on('turbolinks:load', function() {
   $(function(){
-    $('#liked-users').on('mouseenter', function(){
-      $('.like-users-list').animate({ height: 'show'}, 'fast' );
+    $('#like-icon').on('mouseenter', function(){
+      $('#liked-users').animate({ height: 'show'}, 'fast' );
     })
-    $('#liked-users').on('mouseleave', function(){
-      $('.like-users-list').animate({ height: 'hide'}, 'fast' );
+    $('#like-icon').on('mouseleave', function(){
+      $('#liked-users').animate({ height: 'hide'}, 'fast' );
     })
   })
 });
