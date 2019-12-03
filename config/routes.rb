@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users, :controllers => { registrations: 'users/registrations' }
-  root to: "index#top"
+  root to: "projects#index"
   resources :projects, only: [:new, :create, :show, :edit, :update] do
     collection do
       get :categorylist

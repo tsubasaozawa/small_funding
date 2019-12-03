@@ -22,4 +22,4 @@
           %span ¥#{@project.investments.sum(:investment_amount).to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,')}
           （達成率：#{number_to_percentage(@project.investments.sum(:investment_amount)/@project.goal_amount.to_f * 100, precision: 0)}）
   .return-top
-    = link_to '＜一覧に戻る＞', projects_path, class: "none-decoration-link"
+    = link_to '＜一覧に戻る＞', root_path, class: "none-decoration-link"

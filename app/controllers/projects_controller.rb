@@ -15,7 +15,7 @@ class ProjectsController < ApplicationController
     category_list = params[:category_list].split(",")
     if project.save
       project.save_categories(category_list)
-      redirect_to projects_path
+      redirect_to root_path
     else
       redirect_to new_project_path
     end
@@ -42,7 +42,7 @@ class ProjectsController < ApplicationController
   end
 
   def search
-    redirect_to projects_path if params[:keyword] == ""
+    redirect_to root_path if params[:keyword] == ""
     @like = Like.new
 
     if params[:tag_search].to_i == 1
