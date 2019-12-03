@@ -10,6 +10,8 @@ class Project < ApplicationRecord
   has_many :project_categories, dependent: :destroy
   has_many :categories, through: :project_categories
 
+  has_many :feedbacks
+
   validates :title,                presence: true, length: { maximum: 30 }
   validates :content,              presence: true
   validates :goal_amount,          presence: true,  numericality: { only_integer: true, greater_than: 0, less_than: 100000}

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_29_065239) do
+ActiveRecord::Schema.define(version: 2019_12_02_141016) do
 
   create_table "cards", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "customer_id"
@@ -26,6 +26,22 @@ ActiveRecord::Schema.define(version: 2019_11_29_065239) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["tag_name"], name: "index_categories_on_tag_name", unique: true
+  end
+
+  create_table "feedbacks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.text "text", null: false
+    t.bigint "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_feedbacks_on_project_id"
+  end
+
+  create_table "images", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.text "feedback_image"
+    t.bigint "feedback_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["feedback_id"], name: "index_images_on_feedback_id"
   end
 
   create_table "investments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -67,6 +83,17 @@ ActiveRecord::Schema.define(version: 2019_11_29_065239) do
     t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
+  create_table "reviews", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "rate", null: false
+    t.text "review"
+    t.bigint "feedback_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["feedback_id"], name: "index_reviews_on_feedback_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
+  end
+
   create_table "user_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "category_id"
@@ -95,12 +122,16 @@ ActiveRecord::Schema.define(version: 2019_11_29_065239) do
   end
 
   add_foreign_key "cards", "users"
+  add_foreign_key "feedbacks", "projects"
+  add_foreign_key "images", "feedbacks"
   add_foreign_key "investments", "projects"
   add_foreign_key "investments", "users"
   add_foreign_key "likes", "projects"
   add_foreign_key "likes", "users"
   add_foreign_key "project_categories", "categories"
   add_foreign_key "project_categories", "projects"
+  add_foreign_key "reviews", "feedbacks"
+  add_foreign_key "reviews", "users"
   add_foreign_key "user_categories", "categories"
   add_foreign_key "user_categories", "users"
 end

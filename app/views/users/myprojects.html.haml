@@ -40,9 +40,10 @@
             %tbody
               - @user.projects.each do |myproject|
                 %tr
-                  - if myproject.limit < @today
-                    %td.myproject-title= link_to "#{myproject.title}",project_path(myproject), class: "myproject-title__link"
-                    %td.myproject-item-like #{myproject.likes.count}件
-                    %td.myproject-item-limit= myproject.limit.strftime("%Y/%-m/%-d")
-                    %td.myproject-item-amount ¥#{myproject.goal_amount.to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,')}
-                    %td¥#{myproject.investments.sum(:investment_amount).to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,')}（#{number_to_percentage(myproject.investments.sum(:investment_amount)/myproject.goal_amount.to_f * 100, precision: 0)}）
+                  - unless myproject.feedbacks.any?
+                    - if myproject.limit < @today
+                      %td.myproject-title= link_to "#{myproject.title}",project_path(myproject), class: "myproject-title__link"
+                      %td.myproject-item-like #{myproject.likes.count}件
+                      %td.myproject-item-limit= myproject.limit.strftime("%Y/%-m/%-d")
+                      %td.myproject-item-amount ¥#{myproject.goal_amount.to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,')}
+                      %td¥#{myproject.investments.sum(:investment_amount).to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,')}（#{number_to_percentage(myproject.investments.sum(:investment_amount)/myproject.goal_amount.to_f * 100, precision: 0)}）

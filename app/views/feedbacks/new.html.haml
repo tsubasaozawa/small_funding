@@ -1,0 +1,39 @@
+= render "shared/header"
+.project-show
+  .project-show__wrapper
+    .project-show__wrapper__upper-contents
+      .project-show__wrapper__upper-contents__top-info
+        .project-show__wrapper__upper-contents__top-info__owner-name
+          プロジェクトオーナー：
+          = @project.user.nickname
+      .project-show__wrapper__upper-contents__title
+        = @project.title
+      .project-show__wrapper__upper-contents__category
+        .project-show__wrapper__upper-contents__category__tags
+          - @project.categories.each do |category|
+            .project-show__wrapper__upper-contents__category__tags__tag
+              = category.tag_name
+      .project-show__wrapper__upper-contents__amount
+        目標金額：
+        %span ¥
+        %span= @project.goal_amount.to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,')
+        ／ 最終合計金額：
+        %span ¥#{@project.investments.sum(:investment_amount).to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,')}
+        （達成率：#{number_to_percentage(@project.investments.sum(:investment_amount)/@project.goal_amount.to_f * 100, precision: 0)}）
+      .project-show__wrapper__upper-contents__like
+        .project-show__wrapper__upper-contents__like__count
+          #{@project.likes.count}人がいいね!しました
+
+    .project-show__wrapper__bottom-contents
+      .project-show__wrapper__bottom-contents_title
+        = form_with url: project_feedbacks_path, local: true do |f|
+          .feedback-form__content
+            .feedback-form__content__form-label
+              = f.label :text, "フィードバック内容"
+            = f.text_area :text, class: "feedback-form__content__text-area", placeholder: 'プロジェクト内容を入力してください'
+          .feedback-form__submit
+            = f.submit "確認して送信する", class: "feedback-form__submit__btn"
+
+  .return-top
+    = link_to projects_path(@project), class: "none-decoration-link" do
+      ＜一覧に戻る＞

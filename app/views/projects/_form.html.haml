@@ -2,7 +2,7 @@
   = form_with model: project, local: true do |f|
     .project-form__title
       .project-form__title__form-label
-        = f.label :title, "プロジェクトタイトル ※"
+        = f.label :title, "プロジェクトタイトル ※30文字以内"
       = f.text_field :title, class: "project-form__title__text-field"
     .project-form__category
       .project-form__category__form-label

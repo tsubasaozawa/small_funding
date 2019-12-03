@@ -1,10 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user
 
-  def mypage
-
-  end
-
   def new
     @user = User.new
   end
@@ -21,7 +17,6 @@ class UsersController < ApplicationController
 
   def update
     if current_user.update(user_params)
-      binding.pry
       redirect_back(fallback_location: root_path)
     else
       render mypage_user_path
