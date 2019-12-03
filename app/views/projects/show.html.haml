@@ -13,7 +13,7 @@
                 .project-show__wrapper__upper-contents__top-info__action-box__action-btn
                   投稿内容編集
             - else
-              = link_to "", class: "none-decoration-link" do
+              = link_to new_project_feedback_path(@project), class: "none-decoration-link" do
                 .project-show__wrapper__upper-contents__top-info__action-box__action-btn
                   フィードバックをする
           - else

@@ -7,6 +7,9 @@ Rails.application.routes.draw do
       get :categorylist
       get :search
     end
+    resources :feedbacks, except: [:index] do
+      resources :reviews
+    end
     resources :likes, only: [:create, :destroy]
   end
   resources :purchase, only: [:show] do
