@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user
+  before_action :set_rate
 
   def new
     @user = User.new
@@ -31,5 +32,9 @@ class UsersController < ApplicationController
 
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def set_rate
+    @total_rate = current_user.reviews.sum(:rate)
   end
 end

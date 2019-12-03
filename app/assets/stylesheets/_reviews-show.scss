@@ -1,0 +1,20 @@
+.review-contents{
+  &__item-title{}
+  &__item-content{
+    margin: 10px 0;
+    padding: 15px;
+    border: solid 1px $main-color;
+    &__upper{
+      display: flex;
+      border-bottom: solid 1px #eee;
+
+      &__nickname{
+        margin-right: 20px;
+      }
+      &__rate{}
+    }
+    &__main{
+      margin-top: 10px;
+    }
+  }
+}

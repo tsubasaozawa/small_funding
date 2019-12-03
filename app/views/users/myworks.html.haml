@@ -15,8 +15,8 @@
                 %th.myproject-title 作品名
                 %th.myproject-item-like 評価
             %tbody
-              - @user.projects.includes(:feedbacks).each do |myworks|
+              - @user.projects.includes(:feedbacks).each do |mywork|
                 %tr
-                  - if myworks.feedbacks.any?
-                    %td.myproject-title= link_to "#{myworks.title}",project_feedback_path(myworks), class: "myproject-title__link"
-                    %td.myproject-item-like 件
+                  - if mywork.feedbacks.any?
+                    %td.myproject-title= link_to "#{mywork.title}",project_feedback_path(mywork), class: "myproject-title__link"
+                    %td.myproject-item-rate= mywork.reviews.sum(:rate)

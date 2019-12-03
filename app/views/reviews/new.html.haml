@@ -22,13 +22,20 @@
         （達成率：#{number_to_percentage(@project.investments.sum(:investment_amount)/@project.goal_amount.to_f * 100, precision: 0)}）
       .project-show__wrapper__upper-contents__like
         .project-show__wrapper__upper-contents__like__count
-          = link_to new_project_review_path do
-            レビューを書く
+          #{@project.likes.count}人がいいね!しました
 
     .project-show__wrapper__bottom-contents
       .project-show__wrapper__bottom-contents_title
-        フィードバック内容
-      = @feedback.text
+        = form_with url: "/projects/#{@project.id}/reviews", local: true do |f|
+          .feedback-form__content
+            .feedback-form__content__form-label
+              = f.label :rate, "評価"
+            = f.select :rate, [["非常に良い","3"],["良い","1"],["普通","0"],["悪い","-1"],["非常に悪い","-3"]],{prompt: "---"}
+            .feedback-form__content__form-label
+              = f.label :review, "レビュー"
+            = f.text_area :review, class: "feedback-form__content__text-area", placeholder: 'レビュー内容を入力してください'
+          .feedback-form__submit
+            = f.submit "確認して送信する", class: "feedback-form__submit__btn"
 
   .return-top
     = link_to projects_path(@project), class: "none-decoration-link" do

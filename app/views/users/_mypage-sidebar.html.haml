@@ -23,7 +23,17 @@
               = mytag.tag_name
       .mypage-main-box__side-bar__profile__user-info__rate
         .mypage-main-box__side-bar__profile__user-info__rate__item-name
-          評価
+          ランク：
+          - if  @total_rate >= 300
+            A
+          - elsif @total_rate >= 100
+            B
+          - elsif @total_rate >= -5
+            C
+          - elsif  @total_rate >= -15
+            D
+          - else
+            E
         .mypage-main-box__side-bar__profile__user-info__rate__item-content
       = link_to new_card_path do
         カード情報登録
