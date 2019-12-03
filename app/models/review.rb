@@ -1,4 +1,4 @@
 class Review < ApplicationRecord
-  belongs_to :feedback
+  belongs_to :project
   belongs_to :user
 end

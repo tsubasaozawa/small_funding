@@ -11,6 +11,7 @@ class Project < ApplicationRecord
   has_many :categories, through: :project_categories
 
   has_many :feedbacks
+  has_many :reviews
 
   validates :title,                presence: true, length: { maximum: 30 }
   validates :content,              presence: true

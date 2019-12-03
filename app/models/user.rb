@@ -9,6 +9,8 @@ class User < ApplicationRecord
   has_many :projects, dependent: :destroy
   has_many :investments, dependent: :destroy
 
+  has_many :reviews, dependent: :destroy
+
   has_many :likes, dependent: :destroy
   has_many :liked_projects, through: :likes, source: :project
 

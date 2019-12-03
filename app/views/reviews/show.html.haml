@@ -22,14 +22,33 @@
         （達成率：#{number_to_percentage(@project.investments.sum(:investment_amount)/@project.goal_amount.to_f * 100, precision: 0)}）
       .project-show__wrapper__upper-contents__like
         .project-show__wrapper__upper-contents__like__count
-          = link_to new_project_review_path do
-            レビューを書く
 
     .project-show__wrapper__bottom-contents
-      .project-show__wrapper__bottom-contents_title
-        フィードバック内容
-      = @feedback.text
+      .review-contents
+        .review-contents__item-title
+          レビュー一覧：
+        - @project.reviews.each do |review|
+          .review-contents__item-content
+            .review-contents__item-content__upper
+              .review-contents__item-content__upper__nickname
+                投稿者：
+                = review.user.nickname
+              .review-contents__item-content__upper__rate
+                評価：
+                - if review.rate == 3
+                  非常に良い
+                - elsif review.rate == 1
+                  良い
+                - elsif review.rate == 0
+                  普通
+                - elsif review.rate == -1
+                  悪い
+                - else
+                  非常に悪い
+
+            .review-contents__item-content__main
+              = review.review
 
   .return-top
-    = link_to projects_path(@project), class: "none-decoration-link" do
+    = link_to projects_path, class: "none-decoration-link" do
       ＜一覧に戻る＞

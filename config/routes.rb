@@ -1,15 +1,13 @@
 Rails.application.routes.draw do
   devise_for :users, :controllers => { registrations: 'users/registrations' }
-  root to: "projects#top"
-  resources :projects, only: [:index, :new, :create, :show, :edit, :update] do
+  root to: "index#top"
+  resources :projects, only: [:new, :create, :show, :edit, :update] do
     collection do
-      get :top
       get :categorylist
       get :search
     end
-    resources :feedbacks, except: [:index] do
-      resources :reviews
-    end
+    resources :feedbacks, except: [:index]
+    resources :reviews
     resources :likes, only: [:create, :destroy]
   end
   resources :purchase, only: [:show] do
@@ -23,7 +21,6 @@ Rails.application.routes.draw do
       get :mypage
       get :myworks
       get :myprojects
-      get :participating_projects
       get :investing_projects
     end
   end
