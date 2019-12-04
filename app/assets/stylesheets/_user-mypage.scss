@@ -21,14 +21,13 @@
 
 
 .mypage-main-box{
-  display: flex;
 
   &__side-bar{
-    height: calc(100vh - 70px);
-    width: 230px;
-    border-right: $mypage-border-color;
+
 
     &__profile{
+      display: flex;
+      font-size: 15px;
       
       &__image{
         margin: 15px 0;
@@ -69,11 +68,14 @@
       }
 
       &__user-info{
-        margin: 0 25px;
+        margin: 25px;
 
-        &__nickname{}
+        &__nickname{
+          margin-bottom: 10px;
+        }
 
         &__favorite-tags{
+          margin-bottom: 10px;
 
           &__item-name{}
           
@@ -81,14 +83,25 @@
             @include tags();
           }
         }
+        &__rate{
+          margin-bottom: 10px;
+          
+          &__item-rank{
+  
+  
+          }
+        }
 
+        &__card-info{}
       }
+
     }
   }
 
 
+
   &__main-contents{
-    width: calc(100vw - 230px);
+    width: 100vw;
 
     &__wrapper{
       height: 100%;
@@ -97,7 +110,7 @@
 
       &__left-box{
         height: 100%;
-        width: 30%;
+        width: 300px;
         border-right: $mypage-border-color;
 
         @include content();
