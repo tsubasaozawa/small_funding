@@ -1,0 +1,57 @@
+= render "shared/header"
+.project-index
+  .project-index__title-recommend
+    = link_to root_path, class: "none-decoration-link" do
+      .project-index__title-recommend__search-index
+        プロジェクト一覧
+    = link_to recommend_projects_path, class: "none-decoration-link" do
+      .project-index__title-recommend__search-recommend
+        オススメ一覧
+    = link_to categorylist_projects_path, class: "none-decoration-link" do
+      .project-index__title-recommend__search-category
+        カテゴリーから探す
+  .project-index__contents-wrapper
+    .project-index__contents-wrapper__project-box
+      - current_user.categories.each do |user_category|
+        - user_category.projects.each do |recommend_project|
+          - if recommend_project.limit >=  @today
+            .project-index__contents-wrapper__project-box__item
+              .project-index__contents-wrapper__project-box__item__link
+                .project-index__contents-wrapper__project-box__item__link__title
+                  = recommend_project.title
+                .project-index__contents-wrapper__project-box__item__link__tags
+                  - recommend_project.categories.each do |category|
+                    .project-index__contents-wrapper__project-box__item__link__tags__tag
+                      = category.tag_name
+                .project-index__contents-wrapper__project-box__item__link__limit
+                  募集期限：
+                  = recommend_project.limit.strftime("%Y/%-m/%-d")
+                  - if recommend_project.limit ==  @today
+                    （本日締切！）
+                  - elsif recommend_project.limit > @today
+                    （残り#{(recommend_project.limit - @today).to_i}日）
+                  - else
+                    （募集終了）
+                .project-index__contents-wrapper__project-box__item__link__goal-amount
+                  目標金額：¥
+                  = recommend_project.goal_amount.to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,')
+                .project-index__contents-wrapper__project-box__item__link__total-amount
+                  現在の合計金額：¥
+                  = recommend_project.investments.sum(:investment_amount).to_s.gsub(/(\d)(?=\d{3}+$)/, '\\1,')
+                  (達成率：#{number_to_percentage(recommend_project.investments.sum(:investment_amount)/recommend_project.goal_amount.to_f * 100, precision: 0)})
+                .project-index__contents-wrapper__project-box__item__link__detail
+                  = link_to project_path(recommend_project), class: "project-index__contents-wrapper__project-box__item__link__detail__link" do
+                    詳細を確認する
+                    = fa_icon "chevron-right"
+              .project-index__contents-wrapper__project-box__item__bottom-contents
+                .project-index__contents-wrapper__project-box__item__bottom-contents__owner-name
+                  オーナー：
+                  = recommend_project.user.nickname
+                .project-index__contents-wrapper__project-box__item__bottom-contents__likes
+                  #{recommend_project.likes.count}人がいいね!しました
+                  - if current_user.already_liked?(recommend_project)
+                    = link_to project_like_path(recommend_project, current_user), method: :delete, remote: true do
+                      = fa_icon "heart", class: "liked-icon", id: "liked-users"
+                  - else
+                    = link_to project_likes_path(recommend_project), method: :post, remote: true, class: "none-decoration-link" do
+                      = fa_icon "heart-o", class: "like-icon", id: "liked-users"

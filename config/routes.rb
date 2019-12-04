@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     collection do
       get :categorylist
       get :search
+      get :recommend
     end
     resources :feedbacks, except: [:index]
     resources :reviews

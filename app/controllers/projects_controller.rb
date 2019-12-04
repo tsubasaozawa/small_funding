@@ -6,6 +6,11 @@ class ProjectsController < ApplicationController
     @like = Like.new
   end
 
+  def recommend
+    @like = Like.new
+    @projects = Project.includes(:categories).order(limit:"asc")
+  end
+
   def new
     @project = Project.new
   end
