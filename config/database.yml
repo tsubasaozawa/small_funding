@@ -50,5 +50,6 @@ test:
 production:
   <<: *default
   database: small_funding_production
-  username: small_funding
-  password: <%= ENV['SMALL_FUNDING_DATABASE_PASSWORD'] %>
+  username: root
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  socket: /var/lib/mysql/mysql.sock
